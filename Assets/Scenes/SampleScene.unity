@@ -381,15 +381,28 @@ MonoBehaviour:
   waterAlert: {fileID: 1767371402}
   _questionCurrentCount: 0
   Questions:
-  - question: Write a City Name
+  - question: name a capital city in europe
     answers:
     - rome
-    - istanbul
-  - question: Write an animal
+    - ankara
+    - paris
+    - berlin
+    - lisbon
+    - amsterdam
+    - belgrade
+    - budapest
+    - athens
+    - london
+    - oslo
+    - stockholm
+    - wien
+    - vienna
+  - question: name a pet
     answers:
     - cat
     - dog
-    - elephant
+    - hamster
+    - bird
   - question: name a country
     answers:
     - usa
