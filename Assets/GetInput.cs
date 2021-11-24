@@ -10,6 +10,5 @@ public class GetInput : MonoBehaviour
     {
         _input = s;
         Player.Instance.word = s;
-        Debug.Log(_input);
     }
 }

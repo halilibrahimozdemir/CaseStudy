@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Opponent : MonoBehaviour
 {
-    public int length;
+    private int _length;
     public string word;
     public Cube cubePrefab;
     public float timeBetweenSpawns;
-    private static Player _instance;
+    private static Opponent _instance;
 
-    public static Player Instance
+    public static Opponent Instance
     {
         get { return _instance; }
         set => _instance = value;
@@ -33,19 +33,9 @@ public class Player : MonoBehaviour
         DefaultBlocks();
     }
 
-
-    public void SetBlocks()
+    private void Update()
     {
-        Vector3 pos=Vector3.zero;
-        Vector3 originPos = new Vector3(0, -1, 0);
-        length = word.Length;
-        for (int i = 0; i < length; i++)
-        {
-            pos = originPos + new Vector3(0, 1, 0)*(i+1);
-            var cube = Instantiate(cubePrefab, pos, Quaternion.identity);
-            cube._text.text = word[length-1-i].ToString();
-            transform.position = cube.transform.position + new Vector3(0, 1, 0);
-        }
+        word = GameManager.Instance.Questions[GameManager.Instance.QuestionCurrentCount].answers[0];
     }
 
     public void DefaultBlocks()
@@ -55,7 +45,21 @@ public class Player : MonoBehaviour
         a._text.text = "";
         b._text.text = "";
     }
-
+    
+    public void OpSetBlocks()
+    {
+        Vector3 pos=Vector3.zero;
+        Vector3 originPos = new Vector3(2, 0, 0);
+        _length = word.Length;
+        for (int i = 0; i < _length; i++)
+        {
+            pos = originPos + new Vector3(0, 1, 0)*(i+1);
+            var cube = Instantiate(cubePrefab, pos, Quaternion.identity);
+            cube._text.text = word[_length-1-i].ToString();
+            transform.position = cube.transform.position + new Vector3(0, 1, 0);
+        }
+    }
+    
     public void SpawnBlocks()
     {
         StartCoroutine(CreateBlocks());
@@ -64,12 +68,12 @@ public class Player : MonoBehaviour
     {
         Vector3 pos=Vector3.zero;
         Vector3 originPos = transform.position+new Vector3(0,-1,0);
-        length = word.Length;
-        for (int i = 0; i < length; i++)
+        _length = word.Length;
+        for (int i = 0; i < _length; i++)
         {
             pos = originPos + new Vector3(0, 1, 0)*(i+1);
             var cube = Instantiate(cubePrefab, pos, Quaternion.identity);
-            cube._text.text = word[length-1-i].ToString();
+            cube._text.text = word[_length-1-i].ToString();
             transform.position = cube.transform.position + new Vector3(0, 1, 0);
             yield return new WaitForSeconds(timeBetweenSpawns);
         }
