@@ -26,25 +26,16 @@ public class Player : MonoBehaviour
             _instance = this;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
     
     public void SetBlocks()
     {
         Vector3 pos=Vector3.zero;
+        Vector3 originPos = new Vector3(0, -1, 0);
         length = word.Length;
         for (int i = 0; i < length; i++)
         {
-            pos = transform.position + pos + new Vector3(0, 1, 0);
+            pos = originPos + pos + new Vector3(0, 1, 0);
             var cube = Instantiate(cubePrefab, pos, Quaternion.identity);
             cube._text.text = word[length-1-i].ToString();
             transform.position = cube.transform.position + new Vector3(0, 1, 0);
