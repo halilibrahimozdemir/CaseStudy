@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public GameObject question;
     public Text questionText;
     public GameObject inputField;
+    public Text inputText;
     public GameObject answerButton;
     public GameObject water;
     public GameObject GameOverWindow;
@@ -122,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        inputText.color=Color.black;
         playButton.SetActive(false);
         questionText.text = Questions[_questionCurrentCount].question;
         question.SetActive(true);
@@ -133,15 +135,7 @@ public class GameManager : MonoBehaviour
     {
         waterAlert.SetActive(true);
         _waterOldPos = water.transform.position;
-        float distanceY = Math.Abs(water.transform.position.y - Player.Instance.transform.position.y);
-        if ( distanceY> 3)
-        {
-            _desiredWaterPos = _waterOldPos + new Vector3(0, distanceY - 3, 0);
-        }
-        else
-        {
-            _desiredWaterPos = _waterOldPos + new Vector3(0, 3, 0); 
-        }
+        _desiredWaterPos = _waterOldPos + new Vector3(0, 3, 0); 
         
         isWaterRising = true;
     }
@@ -154,6 +148,7 @@ public class GameManager : MonoBehaviour
 
     public void Answered()
     {
+        answerButton.SetActive(false);
         bool isTrue=false;
         foreach (var q in Questions)
         {
@@ -204,7 +199,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaitAndRiseWater());
         question.SetActive(false);
         inputField.SetActive(false);
-        answerButton.SetActive(false);
     }
     
     public IEnumerator WaitABitFalse()
@@ -216,7 +210,6 @@ public class GameManager : MonoBehaviour
         question.SetActive(false);
         inputField.SetActive(false);
         answerButton.SetActive(false);
-        _questionCurrentCount++;
     }
 
     public void Restart()
