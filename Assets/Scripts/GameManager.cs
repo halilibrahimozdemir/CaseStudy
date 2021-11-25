@@ -216,5 +216,10 @@ public class GameManager : MonoBehaviour
     {
         Application.LoadLevel(Application.loadedLevel);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
 
