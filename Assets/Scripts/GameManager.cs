@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -135,7 +136,18 @@ public class GameManager : MonoBehaviour
     {
         waterAlert.SetActive(true);
         _waterOldPos = water.transform.position;
-        _desiredWaterPos = _waterOldPos + new Vector3(0, 3, 0); 
+        int p = Player.Instance.word.Length;
+        int o = Opponent.Instance.word.Length;
+        int avg = (p + o) / 2;
+
+        if (avg <= 3)
+        {
+            _desiredWaterPos = _waterOldPos + new Vector3(0, 3, 0);  
+        }
+        else
+        {
+            _desiredWaterPos = _waterOldPos + new Vector3(0, avg, 0); 
+        }
         
         isWaterRising = true;
     }
@@ -148,6 +160,8 @@ public class GameManager : MonoBehaviour
 
     public void Answered()
     {
+        int rand = Random.Range(0, Questions[_questionCurrentCount].answers.Length - 1);
+        Opponent.Instance.word = Questions[_questionCurrentCount].answers[rand];
         answerButton.SetActive(false);
         bool isTrue=false;
         foreach (var q in Questions)

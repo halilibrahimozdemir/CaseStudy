@@ -32,11 +32,7 @@ public class Opponent : MonoBehaviour
     {
         DefaultBlocks();
     }
-
-    private void Update()
-    {
-        word = GameManager.Instance.Questions[GameManager.Instance.QuestionCurrentCount].answers[0];
-    }
+    
 
     public void DefaultBlocks()
     {
